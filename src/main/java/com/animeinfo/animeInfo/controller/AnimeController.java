@@ -76,6 +76,12 @@ public class AnimeController {
     ){
         Anime animeBusca = this.animeMapper.toModelo(anime);
         List<Anime> localizar = animeService.localizar(animeBusca);
+
+        System.out.println("----------------------------------------Found----------------------------------");
+
+        System.out.println("toDTO: " + this.animeMapper.toDTO(localizar));
+
+        System.out.println("---------------------------------------FixThis---------------------------------");
         return this.animeMapper.toDTO(localizar);
     }
 }

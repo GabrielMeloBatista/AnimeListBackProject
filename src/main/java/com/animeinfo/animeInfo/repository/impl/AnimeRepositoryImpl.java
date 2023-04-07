@@ -30,16 +30,21 @@ public class AnimeRepositoryImpl implements AnimeRepositoryCustom {
             parametros.put("nome", anime.getNome());
         }
         if (Strings.isNotEmpty(anime.getGeneroID())) {
-            jpql.append(" AND UPPER(anime.GeneroID) LIKE UPPER('%' || :Genero || '%')  ");
-            parametros.put("Genero", anime.getGeneroID());
+            jpql.append(" AND UPPER(anime.GeneroID) LIKE UPPER('%' || :genero_id || '%')  ");
+            parametros.put("genero_id", anime.getGeneroID());
         }
         if(Objects.nonNull(anime.getTipoAnime())){
-            jpql.append(" AND anime.TipoAnime = :tipo");
-            parametros.put("tipo", anime.getTipoAnime());
+            jpql.append(" AND anime.TipoAnime = LIKE UPPER('%' || :tipo_anime || '%')  ");
+            parametros.put("tipo_anime", anime.getTipoAnime());
+        }
+        if(Objects.nonNull(anime.getDataLacamento())){
+            jpql.append(" AND anime.getDataLacamento = UPPER('%' || :data_lancamento || '%')  ");
+            parametros.put("data_lancamento", anime.getDataLacamento());
         }
 
         TypedQuery<Anime> query = entityManager.createQuery(jpql.toString(), Anime.class);
         parametros.entrySet().forEach(parametro -> query.setParameter(parametro.getKey(), parametro.getValue()));
+
         return query.getResultList();
     }
 }

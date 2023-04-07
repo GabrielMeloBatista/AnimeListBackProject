@@ -8,6 +8,7 @@ public @Data class AnimeDTO {
     private long id;
     private String nome;
     private Date dataLacamento;
-    private String tipoAnime;
     private String generoID;
+    private String tipoAnime;
+
 }

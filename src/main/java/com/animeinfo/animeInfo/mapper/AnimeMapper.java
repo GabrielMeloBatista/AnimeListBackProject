@@ -16,7 +16,7 @@ public interface AnimeMapper {
      * @param anime
      * @return
      */
-    public AnimeListaDTO toDTO(Anime anime);
+    public AnimeDTO toDTO(Anime anime);
 
     public List<AnimeListaDTO> toDTO(List<Anime> animes);
 
