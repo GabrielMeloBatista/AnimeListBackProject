@@ -44,8 +44,7 @@ public class AnimeController {
         animeIncluir = this.animeService.incluir(animeIncluir);
 
         //preparação para o retorno
-        AnimeDTO retorno = this.animeMapper.toAlunoDTO(animeIncluir);
-        return retorno;
+        return this.animeMapper.toAlunoDTO(animeIncluir);
     }
 
     @PutMapping(path = "/{id}")
