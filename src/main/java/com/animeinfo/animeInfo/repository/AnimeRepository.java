@@ -9,8 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface AnimeRepository extends JpaRepository<Anime, Long>, AnimeRepositoryCustom {
-    Optional<Anime> findAnimeByNome(String nome);
-
-    @Query(value = "select count(a) from Anime as a where a.nome=:paramNome")
-    Integer countUtilizacaoNome(String paramNome);
 }

@@ -10,5 +10,4 @@ public @Data class AnimeDTO {
     private Date dataLacamento;
     private String generoID;
     private String tipoAnime;
-
 }
