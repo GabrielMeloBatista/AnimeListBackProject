@@ -29,7 +29,7 @@ public class Anime implements IEntidade<Long> {
     )
     @Id
     @Column(name = "AnimeId")
-    private long id;
+    private Long id;
 
     @Column(name = ANIME_NAME, nullable = false)
     private String nome;
