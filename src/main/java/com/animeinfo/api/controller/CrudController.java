@@ -64,8 +64,8 @@ public abstract class CrudController<
     @GetMapping(path = "/{id}")
     @Operation(description = "Obter os dados completos de uma entidiade pelo id informado!")
     public DTO ObterPorId(@PathVariable(name = "id") PK_TYPE id){
-        ENTIDADE aluno = this.service.obterPeloId(id);
-        return this.mapper.toDTO(aluno);
+        ENTIDADE anime = this.service.obterPeloId(id);
+        return this.mapper.toDTO(anime);
     }
 
 }
