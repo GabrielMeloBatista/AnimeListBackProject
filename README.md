@@ -9,4 +9,5 @@ Clique [Aqui!](http://localhost:8080/swagger-ui/index.html) para acessar o swagg
 ## Frontend
 
 Clique [Aqui!](https://github.com/GabrielMeloBatista/AnimeListProject) para pegar o frontend deste projeto
+
 Clique [Aqui!](http://localhost:4200) para acessar o frontend deste projeto
