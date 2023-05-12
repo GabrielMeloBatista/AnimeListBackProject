@@ -24,7 +24,7 @@ public class ApiWebConfig {
 	/**
 	 * Retorna a instância de {@link CorsFilter} responsável por desabilitar o
 	 * 'CORS' de forma global na aplicação.
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean

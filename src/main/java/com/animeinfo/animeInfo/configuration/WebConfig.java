@@ -23,7 +23,7 @@ public class WebConfig extends ApiWebConfig {
 
 	/**
 	 * Retorna a instância {@link MethodValidationPostProcessor}.
-	 * 
+	 *
 	 * @return
 	 */
 	/*@Bean

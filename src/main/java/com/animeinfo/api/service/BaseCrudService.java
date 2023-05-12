@@ -1,5 +1,7 @@
 package com.animeinfo.api.service;
 
+import com.animeinfo.animeInfo.exception.SistemaMessageCode;
+import com.animeinfo.api.exception.BusinessException;
 import com.animeinfo.api.model.IEntidade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -50,7 +52,7 @@ public abstract class BaseCrudService<
         ENTIDADE entidade = repository
                 .findById(id)
                 .orElseThrow(
-                        () -> new IllegalArgumentException("Erro ao Localizar a entidade!")
+                        () -> new BusinessException(SistemaMessageCode.ERRO_REGISTRO_NAO_ENCONTRADO)
                 );
         return entidade;
     }
