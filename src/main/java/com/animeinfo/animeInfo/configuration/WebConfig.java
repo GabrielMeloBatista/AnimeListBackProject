@@ -9,9 +9,9 @@
 package com.animeinfo.animeInfo.configuration;
 
 import com.animeinfo.api.config.ApiWebConfig;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
-import org.springframework.web.filter.CorsFilter;
 
 /**
  * Classe de configuração referente aos recursos Web MVC da aplicação.
@@ -32,8 +32,8 @@ public class WebConfig extends ApiWebConfig {
 	}*/
 
 	@Override
-	public CorsFilter corsFilter() {
-		CorsFilter corsFilter = super.corsFilter();
+	public FilterRegistrationBean corsFilter() {
+		FilterRegistrationBean corsFilter = super.corsFilter();
 		return corsFilter;
 	}
 }
