@@ -2,6 +2,7 @@ package com.animeinfo.api.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  *
  * @author UEG
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FieldResponse implements Serializable {
     private static final long serialVersionUID = -807504480597471148L;

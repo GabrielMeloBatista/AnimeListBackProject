@@ -13,12 +13,12 @@ public interface MessageCode {
      *
      * @return -
      */
-    public String getCode();
+    String getCode();
 
     /**
      * Retorna o Status HTTP referente a mensagem.
      *
      * @return -
      */
-    public Integer getStatus();
+    Integer getStatus();
 }

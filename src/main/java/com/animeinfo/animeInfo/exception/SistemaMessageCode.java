@@ -3,8 +3,10 @@ package com.animeinfo.animeInfo.exception;
 import com.animeinfo.api.exception.MessageCode;
 
 public enum SistemaMessageCode implements MessageCode {
+
     ERRO_INESPERADO("ME001", 500),
     ERRO_REGISTRO_NAO_ENCONTRADO("ME002", 404),
+    ERRO_BD("ME003", 404),
 
     ERRO_CAMPOS_OBRIGATORIOS("MSG-001", 400),
     MSG_OPERACAO_REALIZADA_SUCESSO("MSG-002", 200);
@@ -19,7 +21,7 @@ public enum SistemaMessageCode implements MessageCode {
      * @param code -
      * @param status -
      */
-    private SistemaMessageCode(final String code, final Integer status) {
+    SistemaMessageCode(final String code, final Integer status) {
         this.code = code;
         this.status = status;
     }

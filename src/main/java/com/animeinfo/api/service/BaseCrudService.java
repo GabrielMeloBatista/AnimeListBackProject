@@ -3,7 +3,9 @@ package com.animeinfo.api.service;
 import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.api.exception.BusinessException;
 import com.animeinfo.api.model.IEntidade;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public abstract class BaseCrudService<
         REPOSITORY extends CrudRepository<ENTIDADE, PK_TYPE>
         > implements CrudService<ENTIDADE, PK_TYPE>{
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected REPOSITORY repository;
     @Override
@@ -43,9 +46,12 @@ public abstract class BaseCrudService<
         ENTIDADE entidadeBD = recuperarEntidadeOuGeraErro(id);
         entidade.setId(id);
 
-        ENTIDADE save = repository.save(entidade);
-
-        return save;
+        try {
+            ENTIDADE save = repository.save(entidade);
+            return save;
+        }catch (ConstraintViolationException | DataIntegrityViolationException cev){
+            throw new BusinessException(SistemaMessageCode.ERRO_BD,cev.getMessage());
+        }
     }
 
     protected ENTIDADE recuperarEntidadeOuGeraErro(PK_TYPE id) {

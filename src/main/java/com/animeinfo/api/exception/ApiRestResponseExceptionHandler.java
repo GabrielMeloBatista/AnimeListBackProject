@@ -33,7 +33,6 @@ import java.util.List;
  */
 public abstract class ApiRestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
-
     @Autowired
     private MessageSource messageSource;
 
@@ -188,8 +187,7 @@ public abstract class ApiRestResponseExceptionHandler extends ResponseEntityExce
                                                                   final HttpHeaders headers, final HttpStatusCode status, final WebRequest request) {
         ResponseEntity<Object> responseEntity = null;
 
-        if (e.getCause() instanceof InvalidFormatException) {
-            InvalidFormatException ex = (InvalidFormatException) e.getCause();
+        if (e.getCause() instanceof InvalidFormatException ex) {
             String attribute = ex.getPath().stream().map(path -> path.getFieldName()).findFirst().orElse(null);
 
             MessageResponse response = new MessageResponse();

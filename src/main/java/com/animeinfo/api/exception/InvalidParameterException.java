@@ -1,5 +1,7 @@
 package com.animeinfo.api.exception;
 
+import java.io.Serial;
+
 /**
  * Classe de exceção a ser lançada caso seja identificado parâmetros inválidos.
  *
@@ -7,6 +9,7 @@ package com.animeinfo.api.exception;
  */
 public class InvalidParameterException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 6477399315270679560L;
 
     private final String field;
@@ -16,8 +19,8 @@ public class InvalidParameterException extends RuntimeException {
     /**
      * Construtor da classe.
      *
-     * @param field
-     * @param defaultMessage
+     * @param field Field
+     * @param defaultMessage Mensagem Padrão de erro
      */
     public InvalidParameterException(final String field, final String defaultMessage) {
         this.field = field;
@@ -45,5 +48,4 @@ public class InvalidParameterException extends RuntimeException {
     public String getMessage() {
         return defaultMessage;
     }
-
 }

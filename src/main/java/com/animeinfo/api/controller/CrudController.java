@@ -1,5 +1,6 @@
 package com.animeinfo.api.controller;
 
+import com.animeinfo.api.exception.MessageResponse;
 import com.animeinfo.api.mapper.BaseMapper;
 import com.animeinfo.api.model.IEntidade;
 import com.animeinfo.api.service.CrudService;
@@ -8,9 +9,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +23,11 @@ public abstract class CrudController<
         SERVICE extends CrudService<ENTIDADE, PK_TYPE>
         > {
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected MAPPER mapper;
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected SERVICE service;
 
@@ -48,7 +47,12 @@ public abstract class CrudController<
 
     @PostMapping
     @Operation(description = "Método utilizado para realizar a inclusão de um entidade", responses = {
-            @ApiResponse(responseCode = "200", description = "Entidade Incluida", content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "Entidade Incluida", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Campos Obrigatórios não informados",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MessageResponse.class)
+                    )
+            )
     })
     public ResponseEntity<DTO> incluir(@RequestBody DTO modeloDTO){
         //prepração para entrada.
@@ -67,10 +71,12 @@ public abstract class CrudController<
             @ApiResponse(responseCode = "200", description = "Listagem geral",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(type = "array", anyOf = List.class))),
+                            schema = @Schema(implementation = Object.class))),
             @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
-                    content = @Content(mediaType = "application/json"))
-    })
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MessageResponse.class)))
+    }
+    )
     public ResponseEntity<DTO> alterar(@RequestBody() DTO modeloDTO, @PathVariable(name = "id") PK_TYPE id
     ){
         ENTIDADE pModelo = mapper.toModelo(modeloDTO);
@@ -92,5 +98,6 @@ public abstract class CrudController<
         ENTIDADE aluno = this.service.obterPeloId(id);
         return ResponseEntity.ok(this.mapper.toDTO(aluno));
     }
+
 
 }
