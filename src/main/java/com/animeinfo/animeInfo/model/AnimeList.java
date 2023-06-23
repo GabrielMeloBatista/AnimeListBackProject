@@ -17,13 +17,13 @@ public class AnimeList implements IEntidade<Long> {
     public static final String ANIME_NAME = "AnimeNome";
 
     @SequenceGenerator(
-            name="a_gerador_sequence",
+            name="al_gerador_sequence",
             sequenceName = "anime_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "a_gerador_sequence"
+            generator = "al_gerador_sequence"
     )
     @Id
     @Column(name = "AnimeListId")
