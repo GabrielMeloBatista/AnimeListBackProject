@@ -81,7 +81,7 @@ public abstract class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 }
-*/
+
 package br.ueg.prog.webi.faculdade.configuration;
 
 import br.ueg.prog.webi.api.config.ApiSecurityConfig;
@@ -99,3 +99,4 @@ public class SecurityConfig extends ApiSecurityConfig {
 
     }
 }
+*/
