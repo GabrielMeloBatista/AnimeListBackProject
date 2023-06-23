@@ -2,12 +2,12 @@ package com.animeinfo.animeInfo.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public @Data class AnimeDTO {
     private long id;
     private String nome;
-    private Date dataLacamento;
+    private LocalDate dataLacamento;
     private String generoID;
     private String tipoAnime;
 }

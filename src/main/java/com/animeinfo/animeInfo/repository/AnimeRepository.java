@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AnimeRepository extends JpaRepository<Anime, Long>, AnimeRepositoryCustom {
+public interface AnimeRepository extends JpaRepository<Anime, Long> {
 }

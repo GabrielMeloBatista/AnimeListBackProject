@@ -5,21 +5,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity
-@Table( name = "TBL_ANIME",
-        uniqueConstraints = {
-                @UniqueConstraint(name= Anime.UK_ANIME_NAME, columnNames = Anime.ANIME_NAME )
-        }
-)
-public class Anime implements IEntidade<Long> {
+@Table( name = "TBL_ANIME_LIST")
+public class AnimeList implements IEntidade<Long> {
     public static final String UK_ANIME_NAME = "uk_anime_name";
-    public static final String ANIME_NAME = "nome";
+    public static final String ANIME_NAME = "AnimeNome";
+
     @SequenceGenerator(
             name="a_gerador_sequence",
             sequenceName = "anime_sequence",
@@ -30,24 +26,21 @@ public class Anime implements IEntidade<Long> {
             generator = "a_gerador_sequence"
     )
     @Id
-    @Column(name = "AnimeId")
+    @Column(name = "AnimeListId")
     private Long id;
 
-    @Column(name = ANIME_NAME, nullable = false)
-    private String nome;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Anime anime;
 
-    @Column(name = "DataDeLancamento")
-    private LocalDate dataLacamento;
+    @Column(name = "Watched")
+    private Integer watched;
 
-    @Column(name = "TipoAnime", nullable = false)
-    private String tipoAnime;
-
-    @Column(name = "GeneroID", nullable = false)
-    private String generoID;
+    @Column(name = "Score")
+    private Integer score;
 
     @Override
     public String getTabelaNome() {
-        return "Anime";
+        return "AnimeList";
     }
 
 
@@ -55,8 +48,8 @@ public class Anime implements IEntidade<Long> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Anime anime = (Anime) o;
-        return id != null && Objects.equals(id, anime.id);
+        AnimeList animeList = (AnimeList) o;
+        return id != null && Objects.equals(id, animeList.id);
     }
 
     @Override

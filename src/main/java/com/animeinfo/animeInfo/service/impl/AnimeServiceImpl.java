@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-class AnimeServiceImpl
+public class AnimeServiceImpl
         extends BaseCrudService<Anime, Long, AnimeRepository>
         implements AnimeService {
     @Override
