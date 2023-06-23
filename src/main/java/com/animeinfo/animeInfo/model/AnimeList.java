@@ -29,7 +29,8 @@ public class AnimeList implements IEntidade<Long> {
     @Column(name = "AnimeListId")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id", referencedColumnName = "AnimeId")
     private Anime anime;
 
     @Column(name = "Watched")
