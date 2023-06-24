@@ -2,6 +2,7 @@ package com.animeinfo.animeInfo.model;
 
 import com.animeinfo.api.model.IEntidade;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.Hibernate;
 
@@ -29,6 +30,7 @@ public class AnimeList implements IEntidade<Long> {
     @Column(name = "AnimeListId")
     private Long id;
 
+    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", referencedColumnName = "AnimeId")
     private Anime anime;
