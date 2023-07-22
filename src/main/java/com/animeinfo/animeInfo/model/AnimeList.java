@@ -31,7 +31,7 @@ public class AnimeList implements IEntidade<Long> {
     private Long id;
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", referencedColumnName = "AnimeId")
     private Anime anime;
 

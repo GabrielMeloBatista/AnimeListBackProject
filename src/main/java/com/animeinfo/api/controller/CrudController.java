@@ -31,6 +31,21 @@ public abstract class CrudController<
     @Autowired
     protected SERVICE service;
 
+    @GetMapping(path = "/data")
+    @Operation(description = "lazy loading", responses = {
+            @ApiResponse(responseCode = "200", description = "scroll infinito",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema())),
+            @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
+                    content = @Content(mediaType = "application/json"))
+    })
+    public ResponseEntity<List<DTO>> getDados(@RequestParam() int offset,
+                                              @RequestParam() int limit) {
+        List<ENTIDADE> dados = service.getDados(offset, limit);
+        return ResponseEntity.ok(mapper.toDTO(dados));
+    }
+
     @GetMapping()
     @Operation(description = "Listagem Geral", responses = {
             @ApiResponse(responseCode = "200", description = "Listagem geral",
@@ -40,7 +55,7 @@ public abstract class CrudController<
             @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
                     content = @Content(mediaType = "application/json"))
     })
-    public ResponseEntity<List<DTO>> listAll(){
+    public ResponseEntity<List<DTO>> listAll() {
         List<ENTIDADE> modelo = service.listarTodos();
         return ResponseEntity.ok(mapper.toDTO(modelo));
     }
@@ -54,7 +69,7 @@ public abstract class CrudController<
                     )
             )
     })
-    public ResponseEntity<DTO> incluir(@RequestBody DTO modeloDTO){
+    public ResponseEntity<DTO> incluir(@RequestBody DTO modeloDTO) {
         //prepração para entrada.
         ENTIDADE modeloIncluir = this.mapper.toModelo(modeloDTO);
         modeloIncluir.setId(null);
@@ -78,15 +93,16 @@ public abstract class CrudController<
     }
     )
     public ResponseEntity<DTO> alterar(@RequestBody() DTO modeloDTO, @PathVariable(name = "id") PK_TYPE id
-    ){
+    ) {
         ENTIDADE pModelo = mapper.toModelo(modeloDTO);
         ENTIDADE alterar = service.alterar(pModelo, id);
         return ResponseEntity.ok(mapper.toDTO(alterar));
     }
-    @DeleteMapping(path ="/{id}")
+
+    @DeleteMapping(path = "/{id}")
     @Operation(description = "Método utilizado para remover uma entidiade pela id informado", responses = {
             @ApiResponse(responseCode = "200", description = "Entidade Removida", content = @Content(mediaType = "application/json"))})
-    public ResponseEntity<DTO> remover(@PathVariable(name = "id") PK_TYPE id){
+    public ResponseEntity<DTO> remover(@PathVariable(name = "id") PK_TYPE id) {
         ENTIDADE modeloExcluido = this.service.excluir(id);
         return ResponseEntity.ok(mapper.toDTO(modeloExcluido));
     }
@@ -94,7 +110,7 @@ public abstract class CrudController<
     @GetMapping(path = "/{id}")
     @Operation(description = "Obter os dados completos de uma entidiade pelo id informado!", responses = {
             @ApiResponse(responseCode = "200", description = "Entidade encontrada", content = @Content(mediaType = "application/json"))})
-    public ResponseEntity<DTO> ObterPorId(@PathVariable(name = "id") PK_TYPE id){
+    public ResponseEntity<DTO> ObterPorId(@PathVariable(name = "id") PK_TYPE id) {
         ENTIDADE aluno = this.service.obterPeloId(id);
         return ResponseEntity.ok(this.mapper.toDTO(aluno));
     }

@@ -8,17 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class BaseCrudService<
         ENTIDADE extends IEntidade<PK_TYPE>,
         PK_TYPE,
         REPOSITORY extends CrudRepository<ENTIDADE, PK_TYPE>
-        > implements CrudService<ENTIDADE, PK_TYPE>{
+        > implements CrudService<ENTIDADE, PK_TYPE> {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected REPOSITORY repository;
+
     @Override
     public ENTIDADE incluir(ENTIDADE modelo) {
         this.validarCamposObrigatorios(modelo);
@@ -28,15 +31,15 @@ public abstract class BaseCrudService<
         return entidadeIncluido;
     }
 
-    abstract protected void prepararParaIncluir(ENTIDADE entidade) ;
+    abstract protected void prepararParaIncluir(ENTIDADE entidade);
 
     private ENTIDADE gravarDados(ENTIDADE entidade) {
         return repository.save(entidade);
     }
 
-    abstract protected  void validarDados(ENTIDADE entidade) ;
+    abstract protected void validarDados(ENTIDADE entidade);
 
-    abstract protected void validarCamposObrigatorios(ENTIDADE entidade) ;
+    abstract protected void validarCamposObrigatorios(ENTIDADE entidade);
 
     @Override
     public ENTIDADE alterar(ENTIDADE entidade, PK_TYPE id) {
@@ -49,8 +52,8 @@ public abstract class BaseCrudService<
         try {
             ENTIDADE save = repository.save(entidade);
             return save;
-        }catch (ConstraintViolationException | DataIntegrityViolationException cev){
-            throw new BusinessException(SistemaMessageCode.ERRO_BD,cev.getMessage());
+        } catch (ConstraintViolationException | DataIntegrityViolationException cev) {
+            throw new BusinessException(SistemaMessageCode.ERRO_BD, cev.getMessage());
         }
     }
 
@@ -78,5 +81,22 @@ public abstract class BaseCrudService<
     @Override
     public List<ENTIDADE> listarTodos() {
         return (List<ENTIDADE>) repository.findAll();
+    }
+
+    public List<ENTIDADE> getDados(int offset, int limit) {
+        List<ENTIDADE> dadosPaginados = new ArrayList<>();
+        Iterator<ENTIDADE> iterator = repository.findAll().iterator();
+
+        int count = 0;
+        while (iterator.hasNext() && count < offset + limit) {
+            if (count >= offset) {
+                dadosPaginados.add(iterator.next());
+            } else {
+                iterator.next();
+            }
+            count++;
+        }
+
+        return dadosPaginados;
     }
 }

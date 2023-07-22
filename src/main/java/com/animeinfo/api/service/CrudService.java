@@ -8,4 +8,5 @@ public interface CrudService<ENTIDADE, PK_TYPE> {
     ENTIDADE excluir(PK_TYPE id);
     ENTIDADE obterPeloId(PK_TYPE id);
     List<ENTIDADE> listarTodos();
+    List<ENTIDADE> getDados(int offset, int limit);
 }
