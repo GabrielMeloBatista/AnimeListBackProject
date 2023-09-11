@@ -1,5 +1,6 @@
 package com.animeinfo.animeInfo.model;
 
+import com.animeinfo.api.model.DataModel;
 import com.animeinfo.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,18 +32,22 @@ public class Anime implements IEntidade<Long> {
     )
     @Id
     @Column(name = "AnimeId")
+    @DataModel(isObrigatory = true)
     private Long id;
 
     @Column(name = ANIME_NAME, nullable = false)
+    @DataModel(isObrigatory = true)
     private String nome;
 
     @Column(name = "DataDeLancamento")
     private LocalDate dataLacamento;
 
     @Column(name = "TipoAnime", nullable = false)
+    @DataModel(isObrigatory = true)
     private String tipoAnime;
 
     @Column(name = "GeneroID", nullable = false)
+    @DataModel(isObrigatory = true)
     private String generoID;
 
     @Override

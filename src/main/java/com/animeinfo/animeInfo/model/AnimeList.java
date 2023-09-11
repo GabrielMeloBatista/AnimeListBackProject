@@ -1,5 +1,6 @@
 package com.animeinfo.animeInfo.model;
 
+import com.animeinfo.api.model.DataModel;
 import com.animeinfo.api.model.IEntidade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,17 +29,21 @@ public class AnimeList implements IEntidade<Long> {
     )
     @Id
     @Column(name = "AnimeListId")
+    @DataModel(isObrigatory = true)
     private Long id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", referencedColumnName = "AnimeId")
+    @DataModel(isObrigatory = true)
     private Anime anime;
 
     @Column(name = "Watched")
+    @DataModel(isObrigatory = true)
     private Integer watched;
 
     @Column(name = "Score")
+    @DataModel(isObrigatory = true)
     private Integer score;
 
     @Override

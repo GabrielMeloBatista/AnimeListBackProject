@@ -3,6 +3,7 @@ package com.animeinfo.api.service;
 import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.api.exception.BusinessException;
 import com.animeinfo.api.model.IEntidade;
+import com.animeinfo.api.model.ModelAPI;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,7 +25,7 @@ public abstract class BaseCrudService<
 
     @Override
     public ENTIDADE incluir(ENTIDADE modelo) {
-        this.validarCamposObrigatorios(modelo);
+        ModelAPI.validarCamposObrigatorios(modelo.getClass());
         this.validarDados(modelo);
         this.prepararParaIncluir(modelo);
         ENTIDADE entidadeIncluido = this.gravarDados(modelo);
