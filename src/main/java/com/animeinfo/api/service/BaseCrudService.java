@@ -3,10 +3,8 @@ package com.animeinfo.api.service;
 import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.api.exception.BusinessException;
 import com.animeinfo.api.model.IEntidade;
-import com.animeinfo.api.model.ModelAPI;
-import jakarta.validation.ConstraintViolationException;
+import com.animeinfo.api.util.Reflexao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.ArrayList;
@@ -25,7 +23,10 @@ public abstract class BaseCrudService<
 
     @Override
     public ENTIDADE incluir(ENTIDADE modelo) {
-        ModelAPI.validarCamposObrigatorios(modelo.getClass());
+        if(Reflexao.isEntidadeHavePkGenerated(modelo)) {
+            modelo.setId(null);
+        }
+        this.validarCamposObrigatorios(modelo);
         this.validarDados(modelo);
         this.prepararParaIncluir(modelo);
         ENTIDADE entidadeIncluido = this.gravarDados(modelo);
@@ -50,12 +51,7 @@ public abstract class BaseCrudService<
         ENTIDADE entidadeBD = recuperarEntidadeOuGeraErro(id);
         entidade.setId(id);
 
-        try {
-            ENTIDADE save = repository.save(entidade);
-            return save;
-        } catch (ConstraintViolationException | DataIntegrityViolationException cev) {
-            throw new BusinessException(SistemaMessageCode.ERRO_BD, cev.getMessage());
-        }
+        return this.gravarDados(entidade);
     }
 
     protected ENTIDADE recuperarEntidadeOuGeraErro(PK_TYPE id) {
@@ -83,7 +79,6 @@ public abstract class BaseCrudService<
     public List<ENTIDADE> listarTodos() {
         return (List<ENTIDADE>) repository.findAll();
     }
-
     public List<ENTIDADE> getDados(int offset, int limit) {
         List<ENTIDADE> dadosPaginados = new ArrayList<>();
         Iterator<ENTIDADE> iterator = repository.findAll().iterator();

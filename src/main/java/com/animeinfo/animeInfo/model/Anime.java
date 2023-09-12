@@ -1,7 +1,7 @@
 package com.animeinfo.animeInfo.model;
 
-import com.animeinfo.api.model.DataModel;
 import com.animeinfo.api.model.IEntidade;
+import com.animeinfo.api.model.annotation.PkComposite;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;
@@ -13,6 +13,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity
+@PkComposite
 @Table( name = "TBL_ANIME",
         uniqueConstraints = {
                 @UniqueConstraint(name= Anime.UK_ANIME_NAME, columnNames = Anime.ANIME_NAME )
@@ -32,27 +33,33 @@ public class Anime implements IEntidade<Long> {
     )
     @Id
     @Column(name = "AnimeId")
-    @DataModel(isObrigatory = true)
     private Long id;
 
     @Column(name = ANIME_NAME, nullable = false)
-    @DataModel(isObrigatory = true)
     private String nome;
 
     @Column(name = "DataDeLancamento")
     private LocalDate dataLacamento;
 
     @Column(name = "TipoAnime", nullable = false)
-    @DataModel(isObrigatory = true)
     private String tipoAnime;
 
     @Column(name = "GeneroID", nullable = false)
-    @DataModel(isObrigatory = true)
     private String generoID;
 
     @Override
     public String getTabelaNome() {
         return "Anime";
+    }
+
+    @Override
+    public String getIdHash() {
+        return null;
+    }
+
+    @Override
+    public Long getIdFromHash(String hash) {
+        return null;
     }
 
 
