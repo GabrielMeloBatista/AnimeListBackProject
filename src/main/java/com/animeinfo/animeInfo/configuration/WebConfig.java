@@ -9,7 +9,6 @@
 package com.animeinfo.animeInfo.configuration;
 
 import com.animeinfo.api.config.ApiWebConfig;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
@@ -31,9 +30,9 @@ public class WebConfig extends ApiWebConfig {
 		return new MethodValidationPostProcessor();
 	}*/
 
-	@Override
-	public FilterRegistrationBean corsFilter() {
-		FilterRegistrationBean corsFilter = super.corsFilter();
-		return corsFilter;
-	}
+//	@Override
+//	public FilterRegistrationBean corsFilter() {
+//		FilterRegistrationBean corsFilter = super.corsFilter();
+//		return corsFilter;
+//	}
 }

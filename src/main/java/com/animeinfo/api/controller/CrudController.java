@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +34,18 @@ public abstract class CrudController<
 
     @GetMapping(path = "/data")
     @Operation(description = "lazy loading", responses = {
-            @ApiResponse(responseCode = "200", description = "scroll infinito",
-                    content = @Content(
-                            mediaType = "application/json",
+            @ApiResponse(responseCode = "200", description = "Listagem geral",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema())),
-            @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
-                    content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     public ResponseEntity<List<DTO>> getDados(@RequestParam() int offset,
                                               @RequestParam() int limit) {
@@ -49,11 +56,17 @@ public abstract class CrudController<
     @GetMapping()
     @Operation(description = "Listagem Geral", responses = {
             @ApiResponse(responseCode = "200", description = "Listagem geral",
-                    content = @Content(
-                            mediaType = "application/json",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema())),
-            @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
-                    content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     public ResponseEntity<List<DTO>> listAll() {
         List<ENTIDADE> modelo = service.listarTodos();
@@ -62,12 +75,18 @@ public abstract class CrudController<
 
     @PostMapping
     @Operation(description = "Método utilizado para realizar a inclusão de um entidade", responses = {
-            @ApiResponse(responseCode = "200", description = "Entidade Incluida", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "400", description = "Campos Obrigatórios não informados",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MessageResponse.class)
-                    )
-            )
+            @ApiResponse(responseCode = "200", description = "Listagem geral",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema())),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
     })
     public ResponseEntity<DTO> incluir(@RequestBody DTO modeloDTO) {
         //prepração para entrada.
@@ -84,11 +103,16 @@ public abstract class CrudController<
     @PutMapping(path = "/{id}")
     @Operation(description = "Método utilizado para altlerar os dados de uma entidiade", responses = {
             @ApiResponse(responseCode = "200", description = "Listagem geral",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = Object.class))),
-            @ApiResponse(responseCode = "404", description = "Registro náo encontrado",
-                    content = @Content(mediaType = "application/json",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema())),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = MessageResponse.class)))
     }
     )
@@ -101,7 +125,15 @@ public abstract class CrudController<
 
     @DeleteMapping(path = "/{id}")
     @Operation(description = "Método utilizado para remover uma entidiade pela id informado", responses = {
-            @ApiResponse(responseCode = "200", description = "Entidade Removida", content = @Content(mediaType = "application/json"))})
+            @ApiResponse(responseCode = "200", description = "Entidade encontrada",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
     public ResponseEntity<DTO> remover(@PathVariable(name = "id") PK_TYPE id) {
         ENTIDADE modeloExcluido = this.service.excluir(id);
         return ResponseEntity.ok(mapper.toDTO(modeloExcluido));
@@ -109,7 +141,15 @@ public abstract class CrudController<
 
     @GetMapping(path = "/{id}")
     @Operation(description = "Obter os dados completos de uma entidiade pelo id informado!", responses = {
-            @ApiResponse(responseCode = "200", description = "Entidade encontrada", content = @Content(mediaType = "application/json"))})
+            @ApiResponse(responseCode = "200", description = "Entidade encontrada",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
     public ResponseEntity<DTO> ObterPorId(@PathVariable(name = "id") PK_TYPE id) {
         ENTIDADE aluno = this.service.obterPeloId(id);
         return ResponseEntity.ok(this.mapper.toDTO(aluno));

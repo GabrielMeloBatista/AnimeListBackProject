@@ -15,8 +15,8 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.util.Arrays;
 
 /**
  * Classe de configuração referente a geração de documentação automatida da API
@@ -29,6 +29,8 @@ public class ApiSwaggerConfig {
 	public static final String SWAGGER_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0";
 
 	public static final String SWAGGER_LICENSE = "Apache License 2.0";
+
+	public static final String BEARER_AUTH = "bearerAuth";
 
 	@Value("${app.api.swagger.title}")
 	private String title;
@@ -43,7 +45,7 @@ public class ApiSwaggerConfig {
 	private String basePackage;
 
 
-	@Bean
+	/*@Bean
 	public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
 		return new OpenAPI()
 				.components(new Components().addSecuritySchemes("basicScheme",
@@ -56,6 +58,28 @@ public class ApiSwaggerConfig {
 								.url(SWAGGER_LICENSE_URL)
 						)
 				);
+	}*/
+	@Bean
+	public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
+		return new OpenAPI()
+				.components(new Components().addSecuritySchemes(BEARER_AUTH,
+								new SecurityScheme()
+										.name(BEARER_AUTH)
+										.type(SecurityScheme.Type.HTTP)
+										.scheme("bearer")
+										.bearerFormat("JWT")
+										.in(SecurityScheme.In.HEADER)
+						)
+				)
+				.info(new Info()
+						.title(this.title)
+						.version(appVersion)
+						.license(new License()
+								.name(SWAGGER_LICENSE)
+								.url(SWAGGER_LICENSE_URL)
+						)
+				)
+				.security(Arrays.asList(new io.swagger.v3.oas.models.security.SecurityRequirement().addList(BEARER_AUTH)));
 	}
 
 }
