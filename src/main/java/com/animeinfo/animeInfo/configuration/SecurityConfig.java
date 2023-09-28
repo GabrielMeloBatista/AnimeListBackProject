@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends ApiSecurityConfig {
     @Override
     protected void configureHttpSecurity(HttpSecurity http) throws Exception {

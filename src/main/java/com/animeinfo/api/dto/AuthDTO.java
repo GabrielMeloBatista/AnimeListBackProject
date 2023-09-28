@@ -18,8 +18,4 @@ public @Data class AuthDTO implements Serializable {
 
     @Schema(description = "Senha do Usuário", required = true)
     private String senha;
-
-    public void setLogin(String login) {
-
-    }
 }

@@ -2,6 +2,7 @@ package com.animeinfo.api.controller;
 
 import com.animeinfo.api.dto.AuthDTO;
 import com.animeinfo.api.dto.CredencialDTO;
+import com.animeinfo.api.dto.CredencialRegisterDTO;
 import com.animeinfo.api.dto.UsuarioSenhaDTO;
 import com.animeinfo.api.exception.MessageResponse;
 import com.animeinfo.api.service.AuthService;
@@ -18,7 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @RestController
 @Tag(name = "Auth API")
@@ -184,5 +188,35 @@ public class AuthController extends AbstractController {
         final String token = Util.isEmpty(tokenParam) ? tokenHeader : tokenParam;
         boolean valido = authService.getInfoByTokenValidacao(token);
         return ResponseEntity.ok(valido);
+    }
+
+    @Operation(description = "Cria um novo usuario",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Success",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = CredencialDTO.class)))),
+                    @ApiResponse(responseCode = "403", description = "Proibido",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = MessageResponse.class)))),
+                    @ApiResponse(responseCode = "400", description = "Bad Request",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = MessageResponse.class))))
+            })
+    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createUser(@Parameter(description = "Informações de cadastro", required = true) @Valid @RequestBody final CredencialRegisterDTO credencialDTO) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String senhaCodificada = bCryptPasswordEncoder.encode(credencialDTO.getSenha());
+        // TODO create a proper registration system
+        return ResponseEntity.ok(
+                CredencialDTO.builder()
+                    .login(credencialDTO.getLogin())
+                    .id(credencialDTO.getId())
+                    .nome(credencialDTO.getNome())
+                    .email(credencialDTO.getEmail())
+                    .roles(Arrays.asList("ROLE_USER", "ROLE_TIPO_INCLUIR"))
+                    .statusAtivo(credencialDTO.isStatusAtivo())
+                    .senha(senhaCodificada)
+                    .build()
+        );
     }
 }
