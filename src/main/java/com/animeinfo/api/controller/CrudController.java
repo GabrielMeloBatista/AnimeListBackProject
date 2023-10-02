@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +32,6 @@ public abstract class CrudController<
     @Autowired
     protected SERVICE service;
 
-    @PreAuthorize("permitAll()")
     @GetMapping(path = "/data")
     @Operation(description = "lazy loading", responses = {
             @ApiResponse(responseCode = "200", description = "Listagem geral",
@@ -55,7 +53,6 @@ public abstract class CrudController<
         return ResponseEntity.ok(mapper.toDTO(dados));
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping()
     @Operation(description = "Listagem Geral", responses = {
             @ApiResponse(responseCode = "200", description = "Listagem geral",
@@ -142,7 +139,6 @@ public abstract class CrudController<
         return ResponseEntity.ok(mapper.toDTO(modeloExcluido));
     }
 
-    @PreAuthorize("permitAll()")
     @GetMapping(path = "/{id}")
     @Operation(description = "Obter os dados completos de uma entidiade pelo id informado!", responses = {
             @ApiResponse(responseCode = "200", description = "Entidade encontrada",
@@ -158,6 +154,4 @@ public abstract class CrudController<
         ENTIDADE aluno = this.service.obterPeloId(id);
         return ResponseEntity.ok(this.mapper.toDTO(aluno));
     }
-
-
 }
