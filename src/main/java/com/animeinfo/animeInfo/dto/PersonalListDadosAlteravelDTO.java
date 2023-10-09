@@ -2,7 +2,7 @@ package com.animeinfo.animeInfo.dto;
 
 import lombok.Data;
 
-public @Data class AnimeListDadosAlteravelDTO {
-    private Integer score;
+public @Data class PersonalListDadosAlteravelDTO {
     private Integer watched;
+    private Integer score;
 }

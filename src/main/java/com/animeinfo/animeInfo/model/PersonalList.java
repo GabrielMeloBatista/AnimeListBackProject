@@ -2,7 +2,6 @@ package com.animeinfo.animeInfo.model;
 
 import com.animeinfo.api.model.IEntidade;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.Hibernate;
 
@@ -12,10 +11,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity
-@Table( name = "TBL_ANIME_LIST")
-public class AnimeList implements IEntidade<Long> {
-    public static final String UK_ANIME_NAME = "uk_anime_name";
-    public static final String ANIME_NAME = "AnimeNome";
+@Table( name = "TBL_PERSONAL_LIST")
+public class PersonalList implements IEntidade<Long> {
 
     @SequenceGenerator(
             name="al_gerador_sequence",
@@ -30,8 +27,7 @@ public class AnimeList implements IEntidade<Long> {
     @Column(name = "AnimeListId")
     private Long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "id", referencedColumnName = "AnimeId")
     private Anime anime;
 
@@ -43,7 +39,7 @@ public class AnimeList implements IEntidade<Long> {
 
     @Override
     public String getTabelaNome() {
-        return "AnimeList";
+        return "Forum";
     }
 
     @Override
@@ -61,8 +57,8 @@ public class AnimeList implements IEntidade<Long> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AnimeList animeList = (AnimeList) o;
-        return id != null && Objects.equals(id, animeList.id);
+        PersonalList personalList = (PersonalList) o;
+        return id != null && Objects.equals(id, personalList.id);
     }
 
     @Override
