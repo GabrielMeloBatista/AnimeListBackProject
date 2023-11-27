@@ -8,7 +8,7 @@
  */
 package com.animeinfo.animeInfo.configuration;
 
-import com.animeinfo.api.config.ApiWebConfig;
+import com.animeinfo.theapi.config.ApiWebConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 

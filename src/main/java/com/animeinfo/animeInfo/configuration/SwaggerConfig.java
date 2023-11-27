@@ -10,7 +10,7 @@ package com.animeinfo.animeInfo.configuration;
 
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import com.animeinfo.api.config.ApiSwaggerConfig;
+import com.animeinfo.theapi.config.ApiSwaggerConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**

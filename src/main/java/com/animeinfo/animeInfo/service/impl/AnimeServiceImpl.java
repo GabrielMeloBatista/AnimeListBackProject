@@ -4,8 +4,8 @@ import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.animeInfo.model.Anime;
 import com.animeinfo.animeInfo.repository.AnimeRepository;
 import com.animeinfo.animeInfo.service.AnimeService;
-import com.animeinfo.api.exception.BusinessException;
-import com.animeinfo.api.service.BaseCrudService;
+import com.animeinfo.theapi.exception.BusinessException;
+import com.animeinfo.theapi.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

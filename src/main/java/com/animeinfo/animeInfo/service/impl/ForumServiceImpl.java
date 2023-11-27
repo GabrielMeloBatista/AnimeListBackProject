@@ -5,8 +5,8 @@ import com.animeinfo.animeInfo.model.Anime;
 import com.animeinfo.animeInfo.model.Forum;
 import com.animeinfo.animeInfo.repository.ForumRepository;
 import com.animeinfo.animeInfo.service.ForumService;
-import com.animeinfo.api.exception.BusinessException;
-import com.animeinfo.api.service.BaseCrudService;
+import com.animeinfo.theapi.exception.BusinessException;
+import com.animeinfo.theapi.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

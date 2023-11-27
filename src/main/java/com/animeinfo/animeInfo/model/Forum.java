@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.model;
 
-import com.animeinfo.api.model.IEntidade;
+import com.animeinfo.theapi.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;

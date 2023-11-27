@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.exception;
 
-import com.animeinfo.api.exception.MessageCode;
+import com.animeinfo.theapi.exception.MessageCode;
 
 public enum SistemaMessageCode implements MessageCode {
 

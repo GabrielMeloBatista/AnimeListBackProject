@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.configuration;
 
-import com.animeinfo.api.config.ApiSecurityConfig;
+import com.animeinfo.theapi.config.ApiSecurityConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
