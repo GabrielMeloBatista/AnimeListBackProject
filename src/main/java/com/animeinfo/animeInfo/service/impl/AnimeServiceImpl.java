@@ -1,13 +1,11 @@
 package com.animeinfo.animeInfo.service.impl;
 
+import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.animeInfo.model.Anime;
 import com.animeinfo.animeInfo.repository.AnimeRepository;
 import com.animeinfo.animeInfo.service.AnimeService;
-import com.animeinfo.api.model.IEntidade;
-import com.animeinfo.api.service.BaseCrudService;
-import com.animeinfo.api.service.CrudService;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.animeinfo.theapi.exception.BusinessException;
+import com.animeinfo.theapi.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,11 +23,25 @@ public class AnimeServiceImpl
 
     @Override
     protected void validarDados(Anime entidade) {
+        List<String> erros = new ArrayList<>();
 
+        if (entidade.getGeneroID().isEmpty()) {
+            erros.add("Genero não pode ser vazio");
+        }
+
+        if (entidade.getTipoAnime().isEmpty()) {
+            erros.add("Tipo não pode ser vazio");
+        }
+
+        if (!erros.isEmpty()) {
+            throw new BusinessException(SistemaMessageCode.MSG_OPERACAO_FRACASSADA_COM_SUCESSO);
+        }
     }
 
     @Override
     protected void validarCamposObrigatorios(Anime entidade) {
-
+        if (Objects.isNull(entidade)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_CAMPOS_OBRIGATORIOS);
+        }
     }
 }

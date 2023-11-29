@@ -1,7 +1,7 @@
 package com.animeinfo.animeInfo.exception;
 
-import com.animeinfo.api.exception.ApiRestResponseExceptionHandler;
-import com.animeinfo.api.exception.MessageCode;
+import com.animeinfo.theapi.exception.ApiRestResponseExceptionHandler;
+import com.animeinfo.theapi.exception.MessageCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**

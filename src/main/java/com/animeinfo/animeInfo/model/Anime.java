@@ -1,6 +1,7 @@
 package com.animeinfo.animeInfo.model;
 
-import com.animeinfo.api.model.IEntidade;
+import com.animeinfo.theapi.model.IEntidade;
+import com.animeinfo.theapi.model.annotation.PkComposite;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;
@@ -12,6 +13,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity
+@PkComposite
 @Table( name = "TBL_ANIME",
         uniqueConstraints = {
                 @UniqueConstraint(name= Anime.UK_ANIME_NAME, columnNames = Anime.ANIME_NAME )
@@ -48,6 +50,16 @@ public class Anime implements IEntidade<Long> {
     @Override
     public String getTabelaNome() {
         return "Anime";
+    }
+
+    @Override
+    public String getIdHash() {
+        return null;
+    }
+
+    @Override
+    public Long getIdFromHash(String hash) {
+        return null;
     }
 
 
