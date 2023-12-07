@@ -22,7 +22,7 @@ public class ForumServiceImpl
 
     @Override
     protected void validarDados(Forum entidade) {
-        if (entidade.getScore() <= 0 || entidade.getScore() >= 5)
+        if (entidade.getScore() <= 0 || entidade.getScore() > 5)
         {
             throw new BusinessException(SistemaMessageCode.MSG_NAO_SIRVO_POTE_DE_CHA);
         }
