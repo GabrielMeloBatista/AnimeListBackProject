@@ -1,11 +1,13 @@
 package com.animeinfo.animeInfo.service.impl;
 
+import com.animeinfo.animeInfo.dto.AnimeDTO;
 import com.animeinfo.animeInfo.exception.SistemaMessageCode;
 import com.animeinfo.animeInfo.model.Anime;
 import com.animeinfo.animeInfo.repository.AnimeRepository;
 import com.animeinfo.animeInfo.service.AnimeService;
-import com.animeinfo.theapi.exception.BusinessException;
-import com.animeinfo.theapi.service.BaseCrudService;
+import com.animeinfo.api.exception.BusinessException;
+import com.animeinfo.api.service.BaseCrudService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +18,10 @@ import java.util.Objects;
 public class AnimeServiceImpl
         extends BaseCrudService<Anime, Long, AnimeRepository>
         implements AnimeService {
+
+    @Autowired
+    AnimeRepository animeRepository;
+
     @Override
     protected void prepararParaIncluir(Anime entidade) {
 
@@ -43,5 +49,16 @@ public class AnimeServiceImpl
         if (Objects.isNull(entidade)) {
             throw new BusinessException(SistemaMessageCode.ERRO_CAMPOS_OBRIGATORIOS);
         }
+    }
+
+    @Override
+    public List<Anime> search(String searchTerm) {
+        AnimeDTO animeDTO = new AnimeDTO();
+        animeDTO.setNome(searchTerm);
+        List<Anime> anime = repository.findAnimeByNomeContaining(searchTerm);
+        if (Objects.isNull(anime)) {
+            throw new BusinessException(SistemaMessageCode.ERRO_REGISTRO_NAO_ENCONTRADO);
+        }
+        return anime;
     }
 }

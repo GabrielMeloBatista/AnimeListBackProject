@@ -9,7 +9,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 	scanBasePackages = {
 		"com.animeinfo.*",
 		"com.animeinfo.animeInfo.*",
-            "com.animeinfo.theapi.*"
+            "com.animeinfo.api.*"
 	}
 )
 @EntityScan(basePackageClasses = { Jsr310JpaConverters.class },

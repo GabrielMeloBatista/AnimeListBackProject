@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.exception;
 
-import com.animeinfo.theapi.exception.MessageCode;
+import com.animeinfo.api.exception.MessageCode;
 
 public enum SistemaMessageCode implements MessageCode {
 
@@ -10,7 +10,8 @@ public enum SistemaMessageCode implements MessageCode {
 
     ERRO_CAMPOS_OBRIGATORIOS("MSG-001", 400),
     MSG_OPERACAO_REALIZADA_SUCESSO("MSG-002", 200),
-    MSG_OPERACAO_FRACASSADA_COM_SUCESSO("MSG-003", 406);
+    MSG_OPERACAO_FRACASSADA_COM_SUCESSO("MSG-003", 406),
+    MSG_NAO_SIRVO_POTE_DE_CHA("MSG-004", 418);
 
     private final String code;
 

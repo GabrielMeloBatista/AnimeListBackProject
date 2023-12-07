@@ -1,7 +1,7 @@
 package com.animeinfo.animeInfo.mapper;
 
 import com.animeinfo.animeInfo.dto.ForumDTO;
-import com.animeinfo.theapi.mapper.BaseMapper;
+import com.animeinfo.api.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

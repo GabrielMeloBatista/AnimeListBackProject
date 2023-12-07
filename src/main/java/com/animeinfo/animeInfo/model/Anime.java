@@ -1,7 +1,7 @@
 package com.animeinfo.animeInfo.model;
 
-import com.animeinfo.theapi.model.IEntidade;
-import com.animeinfo.theapi.model.annotation.PkComposite;
+import com.animeinfo.api.model.IEntidade;
+import com.animeinfo.api.model.annotation.PkComposite;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;

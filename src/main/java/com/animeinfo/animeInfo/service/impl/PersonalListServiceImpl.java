@@ -3,7 +3,7 @@ package com.animeinfo.animeInfo.service.impl;
 import com.animeinfo.animeInfo.model.PersonalList;
 import com.animeinfo.animeInfo.repository.PersonalListRepository;
 import com.animeinfo.animeInfo.service.PersonalListService;
-import com.animeinfo.theapi.service.BaseCrudService;
+import com.animeinfo.api.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 @Service

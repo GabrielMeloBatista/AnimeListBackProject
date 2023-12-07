@@ -1,8 +1,8 @@
 package com.animeinfo.animeInfo.mapper;
 
 import com.animeinfo.animeInfo.model.Credencial;
-import com.animeinfo.theapi.dto.CredencialDTO;
-import com.animeinfo.theapi.mapper.BaseMapper;
+import com.animeinfo.api.dto.CredencialDTO;
+import com.animeinfo.api.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

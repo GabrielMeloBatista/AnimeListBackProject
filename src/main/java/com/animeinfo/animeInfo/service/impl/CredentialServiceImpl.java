@@ -3,7 +3,7 @@ package com.animeinfo.animeInfo.service.impl;
 import com.animeinfo.animeInfo.model.Credencial;
 import com.animeinfo.animeInfo.repository.CredencialRepository;
 import com.animeinfo.animeInfo.service.CredentialService;
-import com.animeinfo.theapi.service.BaseCrudService;
+import com.animeinfo.api.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 @Service

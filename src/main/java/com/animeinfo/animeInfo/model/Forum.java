@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.model;
 
-import com.animeinfo.theapi.model.IEntidade;
+import com.animeinfo.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.Hibernate;
@@ -35,6 +35,9 @@ public class Forum implements IEntidade<Long> {
 
     @Column(name = "ShittyOpinions")
     private String shittyOpinions;
+
+    @Column(name = "score")
+    private Integer score;
 
     @Override
     public String getTabelaNome() {

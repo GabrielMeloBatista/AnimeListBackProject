@@ -3,9 +3,9 @@ package com.animeinfo.animeInfo.service.impl;
 import com.animeinfo.animeInfo.mapper.CredencialMapper;
 import com.animeinfo.animeInfo.model.Credencial;
 import com.animeinfo.animeInfo.service.CredentialService;
-import com.animeinfo.theapi.dto.CredencialDTO;
-import com.animeinfo.theapi.dto.CredencialRegisterDTO;
-import com.animeinfo.theapi.dto.UsuarioSenhaDTO;
+import com.animeinfo.api.dto.CredencialDTO;
+import com.animeinfo.api.dto.CredencialRegisterDTO;
+import com.animeinfo.api.dto.UsuarioSenhaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserProviderService implements com.animeinfo.theapi.service.UserProviderService {
+public class UserProviderService implements com.animeinfo.api.service.UserProviderService {
     @Autowired
     private CredentialService credentialService;
 

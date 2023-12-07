@@ -1,6 +1,6 @@
 package com.animeinfo.animeInfo.configuration;
 
-import com.animeinfo.theapi.config.ApiSecurityConfig;
+import com.animeinfo.api.config.ApiSecurityConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +21,6 @@ public class SecurityConfig extends ApiSecurityConfig {
 
     @Override
     protected List<String> getCustomFreeAccessPaterns() {
-        return new ArrayList<>(Arrays.asList("/api/v1/anime", "/api/v1/anime/data", "/api/v1/anime/{id}"));
+        return new ArrayList<>(Arrays.asList("/api/v1/anime", "/api/v1/anime/data", "/api/v1/anime/{id}", "/api/v1/anime/search"));
     }
 }

@@ -5,8 +5,8 @@ import com.animeinfo.animeInfo.model.Anime;
 import com.animeinfo.animeInfo.model.Forum;
 import com.animeinfo.animeInfo.repository.ForumRepository;
 import com.animeinfo.animeInfo.service.ForumService;
-import com.animeinfo.theapi.exception.BusinessException;
-import com.animeinfo.theapi.service.BaseCrudService;
+import com.animeinfo.api.exception.BusinessException;
+import com.animeinfo.api.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -22,7 +22,10 @@ public class ForumServiceImpl
 
     @Override
     protected void validarDados(Forum entidade) {
-
+        if (entidade.getScore() <= 0 || entidade.getScore() >= 5)
+        {
+            throw new BusinessException(SistemaMessageCode.MSG_NAO_SIRVO_POTE_DE_CHA);
+        }
     }
 
     @Override
