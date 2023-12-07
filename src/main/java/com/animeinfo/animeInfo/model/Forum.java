@@ -37,7 +37,7 @@ public class Forum implements IEntidade<Long> {
     private String shittyOpinions;
 
     @Column(name = "score")
-    private Integer score;
+    private Long score;
 
     @Override
     public String getTabelaNome() {

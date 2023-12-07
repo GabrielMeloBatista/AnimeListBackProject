@@ -4,4 +4,5 @@ import lombok.Data;
 
 public @Data class ForumDadosAlteravelDTO {
     private String shittyOpinions;
+    private Long score;
 }

@@ -6,5 +6,6 @@ import lombok.Data;
 public @Data class ForumDTO {
     private Long id;
     private Anime anime;
+    private Long score;
     private String shittyOpinions;
 }
